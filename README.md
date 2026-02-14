@@ -208,7 +208,7 @@ cd eventflow
 ```bash
 cd server
 npm install
-npm run dev
+node index.js
 ```
 
 Create `.env` file:
