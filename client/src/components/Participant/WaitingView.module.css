@@ -1,0 +1,280 @@
+/* ============================================
+   WAITING VIEW - Full Screen Blocking State
+   ============================================ */
+
+.waitingContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-hover) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background Pattern */
+.waitingContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 30%, var(--color-pending-light) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, var(--color-primary-light) 0%, transparent 50%);
+  opacity: 0.4;
+  animation: bgPulse 8s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: var(--z-base);
+}
+
+/* Pulsing Icon Section */
+.iconWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-8);
+}
+
+.icon {
+  color: var(--color-pending);
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 10px 20px rgba(245, 158, 11, 0.3));
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulseRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border: 3px solid var(--color-pending);
+  border-radius: 50%;
+  animation: pulseExpand 2s ease-out infinite;
+  opacity: 0;
+}
+
+@keyframes pulseExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Message Section */
+.messageSection {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* User Info Card */
+.userCard {
+  width: 100%;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  border: 2px solid var(--border-light);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.value {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-header);
+  letter-spacing: -0.01em;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: var(--space-2) 0;
+}
+
+
+/* Status Badge */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-pending-light);
+  color: var(--color-pending-hover);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+  border: 2px solid var(--color-pending);
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-pending);
+  border-radius: 50%;
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+/* Instructions */
+.instructions {
+  text-align: center;
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+}
+
+.instructions p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (min-width: 425px) {
+  .iconWrapper {
+    width: 240px;
+    height: 240px;
+  }
+
+  .icon {
+    width: 140px;
+    height: 140px;
+  }
+
+  .pulseRing {
+    width: 200px;
+    height: 200px;
+  }
+
+  .title {
+    font-size: var(--text-5xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .userCard {
+    padding: var(--space-10);
+  }
+
+  .value {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (max-width: 374px) {
+  .iconWrapper {
+    width: 160px;
+    height: 160px;
+  }
+
+  .icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pulseRing {
+    width: 140px;
+    height: 140px;
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+  }
+
+  .subtitle {
+    font-size: var(--text-lg);
+  }
+
+  .value {
+    font-size: var(--text-xl);
+  }
+}
