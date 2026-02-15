@@ -1,7 +1,43 @@
-import { ShieldCheck } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ShieldCheck, RefreshCw } from 'lucide-react';
+import axios from 'axios';
 import styles from './WaitingView.module.css';
 
-const WaitingView = ({ participant }) => {
+const WaitingView = ({ participant, onUpdate }) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    setError('');
+
+    try {
+      const regNo = participant.regNo || participant.registration_number;
+      const response = await axios.get(`https://eventflow-dmku.onrender.com/api/user/${regNo}`);
+
+      const updatedData = {
+        ...response.data,
+        registration_number: response.data.regNo,
+        is_checked_in: response.data.isCheckedIn,
+      };
+
+      if (onUpdate) {
+        onUpdate(updatedData);
+      }
+
+      if (response.data.isCheckedIn) {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError('Failed to refresh status');
+      console.error('Refresh error:', err);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   return (
     <div className={styles.waitingContainer}>
       <div className={styles.content}>
@@ -48,6 +84,21 @@ const WaitingView = ({ participant }) => {
             Please keep this screen visible.
           </p>
         </div>
+
+        {/* Refresh Button */}
+        <button
+          className={styles.refreshButton}
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshCw
+            size={20}
+            className={refreshing ? styles.spinning : ''}
+          />
+          {refreshing ? 'Checking...' : 'Refresh Status'}
+        </button>
+
+        {error && <div className={styles.error}>{error}</div>}
       </div>
     </div>
   );

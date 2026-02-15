@@ -41,6 +41,11 @@ function App() {
     setParticipant(participantData);
   };
 
+  const handleUpdateParticipant = (participantData) => {
+    localStorage.setItem('participant', JSON.stringify(participantData));
+    setParticipant(participantData);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('participant');
     setParticipant(null);
@@ -78,7 +83,7 @@ function App() {
         
         <Route path="/waiting" element={
           participant && !participant.is_checked_in ? (
-            <WaitingView participant={participant} />
+            <WaitingView participant={participant} onUpdate={handleUpdateParticipant} />
           ) : (
             <Navigate to="/" replace />
           )
