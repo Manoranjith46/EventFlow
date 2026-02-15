@@ -53,7 +53,7 @@ const VolunteerDashboard = ({ volunteer, onLogout }) => {
     setVerifySuccess(null);
 
     try {
-      const response = await axios.patch('http://localhost:5000/api/verify', {
+      const response = await axios.patch('https://eventflow-dmku.onrender.com/api/verify', {
         regNo: regNo.trim(),
       });
 
@@ -86,7 +86,7 @@ const VolunteerDashboard = ({ volunteer, onLogout }) => {
     setAnnouncementSuccess(false);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/announcement', {
+      await axios.post('https://eventflow-dmku.onrender.com/api/admin/announcement', {
         message: announcementMessage.trim(),
         category: announcementCategory,
         timestamp: new Date(),
@@ -133,7 +133,7 @@ const VolunteerDashboard = ({ volunteer, onLogout }) => {
     setScheduleSuccess(false);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/schedule', {
+      await axios.post('https://eventflow-dmku.onrender.com/api/admin/schedule', {
         title: scheduleTitle.trim(),
         venue: scheduleVenue.trim(),
         date: scheduleDate,
@@ -218,7 +218,7 @@ const VolunteerDashboard = ({ volunteer, onLogout }) => {
     setParticipationSuccess(false);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/seed', participantsList);
+      await axios.post('https://eventflow-dmku.onrender.com/api/admin/seed', participantsList);
 
       setParticipationSuccess(true);
       setParticipantsList([]);

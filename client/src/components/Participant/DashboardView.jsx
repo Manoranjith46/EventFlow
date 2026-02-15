@@ -78,7 +78,7 @@ const DashboardView = ({ participant, onLogout }) => {
   useEffect(() => {
     const fetchUpdates = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/live-hub');
+        const response = await axios.get('https://eventflow-dmku.onrender.com/api/live-hub');
 
         setUpdates(response.data.feed || []);
         setLoading(false);
@@ -101,7 +101,7 @@ const DashboardView = ({ participant, onLogout }) => {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/schedule');
+        const response = await axios.get('https://eventflow-dmku.onrender.com/api/schedule');
         setScheduleEvents(response.data || []);
       } catch (error) {
         console.error('Error fetching schedule:', error);

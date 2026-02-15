@@ -65,7 +65,7 @@ const ScheduleList = () => {
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/schedule');
+                const res = await axios.get('https://eventflow-dmku.onrender.com/api/schedule');
                 setEvents(res.data);
                 setLoading(false);
             } catch (err) {

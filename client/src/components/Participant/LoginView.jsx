@@ -33,7 +33,7 @@ const LoginView = ({ onLogin, onVolunteerLogin }) => {
 
     try {
       // TODO: Replace with actual API endpoint
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch('https://eventflow-dmku.onrender.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
