@@ -26,23 +26,34 @@
 }
 
 .backButton {
-  width: 40px;
-  height: 40px;
+  min-width: 60px;
+  height: 44px;
+  padding: 0 var(--space-4);
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-light);
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  display: inline-flex;
+  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-lg);
+  flex-shrink: 0;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  z-index: 10;
+  font-weight: 600;
+  font-size: var(--text-sm);
 }
 
 .backButton:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+  background: var(--color-primary-hover);
+  color: #FFFFFF;
+  border-color: var(--color-primary-hover);
 }
 
 .backButton:active {
@@ -53,6 +64,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: var(--space-8);
+  font-size: var(--text-base);
 }
 
 .card {

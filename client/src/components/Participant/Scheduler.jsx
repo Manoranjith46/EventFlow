@@ -78,11 +78,24 @@ const ScheduleList = () => {
     }, []);
 
     if (loading) {
-        return <div className={styles.container}>Loading Timeline...</div>;
-    }
-
-    if (events.length === 0) {
-        return null; // Don't show anything if schedule is empty
+        return (
+            <div className={styles.container}>
+                <div className={styles.headerRow}>
+                    <button
+                        type="button"
+                        className={styles.backButton}
+                        onClick={() => window.history.back()}
+                        aria-label="Back to dashboard"
+                    >
+                        Back
+                    </button>
+                    <h3 className={styles.header}>
+                        <Calendar size={20} color="#2563eb" /> Event Timeline
+                    </h3>
+                </div>
+                <div>Loading Timeline...</div>
+            </div>
+        );
     }
 
     return (
@@ -95,14 +108,16 @@ const ScheduleList = () => {
                     onClick={() => window.history.back()}
                     aria-label="Back to dashboard"
                 >
-                    <ArrowLeft size={18} />
+                    Back
                 </button>
                 <h3 className={styles.header}>
                     <Calendar size={20} color="#2563eb" /> Event Timeline
                 </h3>
             </div>
             
-            {/* List of Cards */}
+            {events.length === 0 ? (
+                <div className={styles.emptyState}>No events scheduled yet.</div>
+            ) : (
             <div className={styles.list}>
                 {(() => {
                     const now = new Date();
@@ -184,6 +199,7 @@ const ScheduleList = () => {
                     });
                 })()}
             </div>
+            )}
         </div>
     );
 };
